@@ -2,25 +2,40 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prerequisites:
 
-## Code scaffolding
+Node.js and npm (or yarn) installed on your system. You can check by running node -v and npm -v (or yarn -v) in your terminal.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Installation:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the project repository:
+```
+git clone https://github.com/your-username/your-project-name.git
+```
 
-## Running unit tests
+2. Navigate to the project directory:
+ ```
+ cd counterhive
+ ```
+3. Install dependencies:
+```
+npm install (or yarn install)
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Development Startup
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Start the development server:
+```
+ng serve
+```
+
+
+## Startup
+This will open the application in your default browser, usually at http://localhost:4200/.
+
 
 ## Further help
 
