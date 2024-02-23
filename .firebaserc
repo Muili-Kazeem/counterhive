@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "counterhive-b3c54": {
+      "hosting": {
+        "counterhive": [
+          "counterhive"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "counterhive-b3c54"
+  }
+}

@@ -1,0 +1,112 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-4">Kanban Dashboard</h1>
+
+  <button type="button" data-hs-overlay="#hs-basic-modal" class="mb-4 py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+    Add new task
+  </button>
+
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 rounded-lg" cdkDropListGroup>
+
+    <div
+      [ngClass]="{'bg-blue-500': column.name === 'open', 'bg-orange-500': column.name === 'pending', 'bg-green-500': column.name === 'progress', 'bg-gray-500': column.name === 'complete'}"
+      class="bg-blue-500 text-white p-4 rounded-lg shadow-md" *ngFor="let column of board | async"
+    >
+      <h2 class="text-xl font-bold mb-4">{{  column.title }}</h2>
+      <ul
+        cdkDropList
+        [cdkDropListData]="column.tasks"
+        (cdkDropListDropped)="drop($event)"
+        class="max-w-xs flex flex-col gap-5"
+      >
+        <div cdkDrag *ngFor="let card of column.tasks" class="cursor-grab flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-lg transition dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+          <div class="p-4 md:p-5">
+            <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+              {{ card.name }}
+            </h3>
+            <p class="mt-2 text-gray-500 dark:text-gray-400">
+              {{ card.description }}
+            </p>
+            <a data-hs-overlay="#hs-basic-modal" class="cursor-pointer mt-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+              Edit task
+              <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </div>
+          <div class="bg-gray-100 border-t rounded-b-xl py-3 px-4 md:py-4 md:px-5 dark:bg-slate-900 dark:border-gray-700">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-500">
+              Due Date: 1jkskskssjk
+            </p>
+          </div>
+        </div>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="hs-basic-modal" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none [--overlay-backdrop:static]" data-hs-overlay-keyboard="false">
+  <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+    <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+      <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
+        <h3 class="font-bold text-gray-800 dark:text-white">
+          Create new task
+        </h3>
+        <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-overlay="#hs-basic-modal">
+          <span class="sr-only">Close</span>
+          <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <form (ngSubmit)="saveTask()" [formGroup]="taskForm">
+        <div class="p-4 overflow-y-auto">
+          <label for="task-name" class="block text-sm font-medium mb-2 dark:text-white">Task name</label>
+          <input
+            type="text"
+            formControlName="taskName"
+            id="task-name"
+            placeholder="Task name here"
+            autofocus class="py-3 px-4 block w-full border-2 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+          >
+        </div>
+        <div class="p-4 overflow-y-auto">
+          <label for="task-description" class="block text-sm font-medium mb-2 dark:text-white">Task description</label>
+          <input
+            type="text"
+            formControlName="taskDescription"
+            id="task-description"
+            placeholder="Task description here"
+            class="py-3 px-4 block w-full border-2 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+          >
+        </div>
+        <div class="p-4 overflow-y-auto">
+          <label for="task-due" class="block text-sm font-medium mb-2 dark:text-white">Due Date</label>
+          <input
+            type="date"
+            formControlName="dueDate"
+            id="task-due"
+            class="py-3 px-4 block w-full border-2 border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+          >
+        </div>
+        <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+          <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-overlay="#hs-basic-modal">
+            Close
+          </button>
+          <button
+            type="submit" data-hs-overlay="#hs-basic-modal" [disabled]="taskForm.valid"
+            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          >
+            Add task
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
